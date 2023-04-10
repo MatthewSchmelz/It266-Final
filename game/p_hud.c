@@ -323,9 +323,9 @@ void HelpComputer (edict_t *ent)
 		"xv 50 yv 164 string2 \" kills     goals    secrets\" "
 		"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" ", 
 		sk,
-		level.level_name,
-		game.helpmessage1,
-		game.helpmessage2,
+		"speedquake",
+		"Finish the level as fast as possible \n using your movement abilities \n read the help .txt to learn more!",
+		"enemies are all harder to dodge, \n and shoot a lot more bullets \n good luck soldier!",
 		level.killed_monsters, level.total_monsters, 
 		level.found_goals, level.total_goals,
 		level.found_secrets, level.total_secrets);
@@ -334,6 +334,14 @@ void HelpComputer (edict_t *ent)
 	gi.WriteString (string);
 	gi.unicast (ent, true);
 }
+/*	
+	speedquake: All these are for the HelpComputer function above, incase I need to reset the damn thing, happy hunting.
+		level.level_name,
+		game.helpmessage1,
+		game.helpmessage2,
+		level.killed_monsters, level.total_monsters, 
+		level.found_goals, level.total_goals,
+		level.found_secrets, level.total_secrets);*/
 
 
 /*
@@ -385,6 +393,15 @@ void G_SetStats (edict_t *ent)
 	//
 	ent->client->ps.stats[STAT_HEALTH_ICON] = level.pic_health;
 	ent->client->ps.stats[STAT_HEALTH] = ent->health;
+
+	char snum[5];
+	itoa(level.time,snum,10);
+	char* str = "Time";
+	char dest[12];
+
+	strcpy(dest, str);
+	strcat(dest, snum);
+	gi.centerprintf(ent->owner, dest);
 
 	//
 	// ammo

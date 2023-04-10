@@ -483,6 +483,17 @@ static void Grenade_Touch (edict_t *ent, edict_t *other, cplane_t *plane, csurfa
 	Grenade_Explode (ent);
 }
 
+void grenade_think(edict_t* self) {
+	vec3_t aimdir = { 0 };
+	self->nextthink = level.time + 2;
+	aimdir[0] = crandom();
+	aimdir[1] = crandom();
+	aimdir[2] = crandom();
+	
+	fire_blaster(self->owner, self->s.origin, aimdir, 50, 1000, 10, EF_BLASTER);
+
+}
+
 void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius)
 {
 	edict_t	*grenade;
@@ -508,7 +519,7 @@ void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int s
 	grenade->owner = self;
 	grenade->touch = Grenade_Touch;
 	grenade->nextthink = level.time + timer;
-	grenade->think = Grenade_Explode;
+	grenade->think = grenade_think;
 	grenade->dmg = damage;
 	grenade->dmg_radius = damage_radius;
 	grenade->classname = "grenade";
