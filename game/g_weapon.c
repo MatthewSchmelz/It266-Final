@@ -290,9 +290,17 @@ Shoots shotgun pellets.  Used by shotgun and super shotgun.
 void fire_shotgun (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick, int hspread, int vspread, int count, int mod)
 {
 	int		i;
+	vec3_t aim = { 0 };
 
-	for (i = 0; i < count; i++)
-		fire_lead (self, start, aimdir, damage, kick, TE_SHOTGUN, hspread, vspread, mod);
+	for (i = 0; i < count; i++) {
+		aim[0] = crandom();
+		aim[1] = crandom();
+		aim[2] = crandom();
+		//fire_lead (self, start, aimdir, damage, kick, TE_SHOTGUN, hspread, vspread, mod);
+		fire_blaster(self, start,aim , damage, 80, 12, true);
+
+	}
+	
 }
 
 
@@ -485,14 +493,25 @@ static void Grenade_Touch (edict_t *ent, edict_t *other, cplane_t *plane, csurfa
 
 void grenade_think(edict_t* self) {
 	vec3_t aimdir = { 0 };
-	self->nextthink = level.time + 2;
+	self->nextthink = level.time + 1;
 	aimdir[0] = crandom();
 	aimdir[1] = crandom();
 	aimdir[2] = crandom();
 	
+	char snum[5];
+	itoa(level.time, snum, 10);
+	char* str = "Time: ";
+	char dest[12];
+
+	strcpy(dest, str);
+	strcat(dest, snum);
+	gi.centerprintf(self->owner, dest);
+	
 	fire_blaster(self->owner, self->s.origin, aimdir, 50, 1000, 10, EF_BLASTER);
 
 }
+
+
 
 void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius)
 {
@@ -518,7 +537,7 @@ void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int s
 	grenade->s.modelindex = gi.modelindex ("models/objects/grenade/tris.md2");
 	grenade->owner = self;
 	grenade->touch = Grenade_Touch;
-	grenade->nextthink = level.time + timer;
+	grenade->nextthink = level.time + 1.0;
 	grenade->think = grenade_think;
 	grenade->dmg = damage;
 	grenade->dmg_radius = damage_radius;

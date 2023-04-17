@@ -324,7 +324,7 @@ void HelpComputer (edict_t *ent)
 		"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" ", 
 		sk,
 		"speedquake",
-		"Finish the level as fast as possible \n using your movement abilities \n read the help .txt to learn more!",
+		"Finish the level as fast as possible \n Time appears when you first fire \n read the help .txt to learn more!",
 		"enemies are all harder to dodge, \n and shoot a lot more bullets \n good luck soldier!",
 		level.killed_monsters, level.total_monsters, 
 		level.found_goals, level.total_goals,

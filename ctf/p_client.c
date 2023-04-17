@@ -1500,6 +1500,18 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	level.current_entity = ent;
 	client = ent->client;
 
+
+
+	//Qspeedtime
+	char snum[5];
+	itoa(level.time, snum, 10);
+	char* str = "Time: ";
+	char dest[12];
+
+	strcpy(dest, str);
+	strcat(dest, snum);
+	gi.centerprintf(ent->owner, dest);
+
 	if (level.intermissiontime)
 	{
 		client->ps.pmove.pm_type = PM_FREEZE;
