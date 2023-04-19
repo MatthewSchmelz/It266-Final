@@ -1,3 +1,4 @@
 C:\Users\death\Desktop\Larger Quake Mod Folder\It266-Final\game\release\gamex86.dll
 C:\Users\death\Desktop\It266-Final\game\release\gamex86.dll
 C:\Users\death\Desktop\Quake2mod\It266-Final\game\release\gamex86.dll
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\release\gamex86.dll

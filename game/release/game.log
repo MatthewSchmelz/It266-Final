@@ -1,2 +1,23 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(503,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  game.vcxproj -> C:\Users\death\Desktop\Quake2mod\It266-Final\game\release\gamex86.dll
+﻿C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(503,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  g_weapon.c
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(277,115): warning C4100: 'mod': unreferenced formal parameter
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(277,89): warning C4100: 'hspread': unreferenced formal parameter
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(277,79): warning C4100: 'kick': unreferenced formal parameter
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(280,11): warning C4101: 'quad': unreferenced local variable
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(279,6): warning C4189: 'blasto': local variable is initialized but not referenced
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(297,127): warning C4100: 'mod': unreferenced formal parameter
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(297,116): warning C4100: 'count': unreferenced formal parameter
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(297,103): warning C4100: 'vspread': unreferenced formal parameter
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(297,90): warning C4100: 'hspread': unreferenced formal parameter
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(297,80): warning C4100: 'kick': unreferenced formal parameter
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(297,56): warning C4100: 'aimdir': unreferenced formal parameter
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(302,11): warning C4101: 'quad': unreferenced local variable
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(478,68): warning C4100: 'plane': unreferenced formal parameter
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(527,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(528,2): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(523,2): warning C4996: 'itoa': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _itoa. See online help for details.
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(512,11): warning C4101: 'quad': unreferenced local variable
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(543,93): warning C4100: 'timer': unreferenced formal parameter
+C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\g_weapon.c(685,11): warning C4101: 'quad': unreferenced local variable
+     Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
+  game.vcxproj -> C:\Users\death\Desktop\Important Class Files\IT266\Class Source\It266-Final\game\release\gamex86.dll

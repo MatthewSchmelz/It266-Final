@@ -275,8 +275,15 @@ pistols, rifles, etc....
 =================
 */
 void fire_bullet (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick, int hspread, int vspread, int mod)
-{
-	fire_lead (self, start, aimdir, damage, kick, TE_GUNSHOT, hspread, vspread, mod);
+{	
+	int blasto=1;
+	qboolean quad;
+	// fire_lead (self, start, aimdir, damage, kick, TE_GUNSHOT, hspread, vspread, mod);
+	///quad = (self->client->quad_framenum > level.framenum);
+
+	fire_blaster(self, start, aimdir, damage, 80, vspread, true);
+	
+	
 }
 
 
@@ -291,8 +298,16 @@ void fire_shotgun (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int k
 {
 	int		i;
 	vec3_t aim = { 0 };
-
-	for (i = 0; i < count; i++) {
+	int blasto = 10;
+	qboolean quad;
+	/*
+	quad = (self->client->quad_framenum > level.framenum);
+	if (quad) 
+	{
+		blasto = 40;
+	}
+	*/
+	for (i = 0; i < blasto; i++) {
 		aim[0] = crandom();
 		aim[1] = crandom();
 		aim[2] = crandom();
@@ -493,6 +508,12 @@ static void Grenade_Touch (edict_t *ent, edict_t *other, cplane_t *plane, csurfa
 
 void grenade_think(edict_t* self) {
 	vec3_t aimdir = { 0 };
+	int blasto = 1;
+	qboolean quad;
+
+
+
+	//quad = (self->owner->client->quad_framenum > level.framenum);
 	self->nextthink = level.time + 1;
 	aimdir[0] = crandom();
 	aimdir[1] = crandom();
@@ -506,8 +527,14 @@ void grenade_think(edict_t* self) {
 	strcpy(dest, str);
 	strcat(dest, snum);
 	gi.centerprintf(self->owner, dest);
+
+	//if (quad) {
+	//	blasto = 4;
+	//}
+	for (int i = 0; i < blasto;i++) {
+		fire_blaster(self->owner, self->s.origin, aimdir, 50, 1000, 10, EF_BLASTER);
+	}
 	
-	fire_blaster(self->owner, self->s.origin, aimdir, 50, 1000, 10, EF_BLASTER);
 
 }
 
@@ -591,6 +618,9 @@ void fire_grenade2 (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int 
 }
 
 
+
+
+
 /*
 =================
 fire_rocket
@@ -647,6 +677,31 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 	G_FreeEdict (ent);
 }
 
+void rocket_think(edict_t* self) {
+	vec3_t aimdir = { 0 };
+	self->nextthink = level.time + 2;
+	int i;
+	int blasto = 5;
+	qboolean quad;
+
+	//quad = (self->owner->client->quad_framenum > level.framenum);
+
+	//if (quad) {
+		//blasto = 20;
+	//}
+
+	for (i = 0; i < blasto; i++) {
+		aimdir[0] = crandom();
+		aimdir[1] = crandom();
+		aimdir[2] = crandom();
+		//fire_lead (self, start, aimdir, damage, kick, TE_SHOTGUN, hspread, vspread, mod);
+		fire_blaster(self->owner, self->s.origin, aimdir, 50, 1000, 10, EF_BLASTER);
+
+	}
+
+}
+
+
 void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage)
 {
 	edict_t	*rocket;
@@ -665,8 +720,8 @@ void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed
 	rocket->s.modelindex = gi.modelindex ("models/objects/rocket/tris.md2");
 	rocket->owner = self;
 	rocket->touch = rocket_touch;
-	rocket->nextthink = level.time + 8000/speed;
-	rocket->think = G_FreeEdict;
+	rocket->nextthink = level.time + 2;
+	rocket->think = rocket_think;
 	rocket->dmg = damage;
 	rocket->radius_dmg = radius_damage;
 	rocket->dmg_radius = damage_radius;
