@@ -1296,7 +1296,7 @@ to be placed into the game.  This will happen every level load.
 void ClientBegin (edict_t *ent)
 {
 	int		i;
-
+	
 	ent->client = game.clients + (ent - g_edicts - 1);
 
 	if (deathmatch->value)
@@ -1741,6 +1741,32 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		if (other->inuse && other->client->chase_target == ent)
 			UpdateChaseCam(other);
 	}
+
+	qboolean burst;
+	vec3_t aimdir = { 0 };
+	aimdir[0] = crandom();
+	aimdir[1] = crandom();
+	aimdir[2] = crandom();
+	burst = (client->breather_framenum > level.framenum);
+	
+
+	if (burst && (level.framenum %10 ==0)) {
+		int	i;
+		vec3_t		start;
+		vec3_t		forward, right;
+		vec3_t		angles;
+		int			damage = 8;
+		int			kick = 2;
+		vec3_t		offset;
+		VectorAdd(ent->client->v_angle, ent->client->kick_angles, angles);
+		AngleVectors(angles, forward, right, NULL);
+		VectorSet(offset, 0, 8, ent->viewheight - 8);
+		
+		fire_bullet(ent, ent->s.origin, aimdir, damage, kick, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);
+
+
+	}
+
 }
 
 

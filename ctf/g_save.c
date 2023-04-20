@@ -170,7 +170,7 @@ void InitGame (void)
 	deathmatch = gi.cvar ("deathmatch", "0", CVAR_LATCH);
 	coop = gi.cvar ("coop", "0", CVAR_LATCH);
 	skill = gi.cvar ("skill", "1", CVAR_LATCH);
-	maxentities = gi.cvar ("maxentities", "1024", CVAR_LATCH);
+	maxentities = gi.cvar ("maxentities", "2048", CVAR_LATCH);
 
 //ZOID
 //This game.dll only supports deathmatch

@@ -274,16 +274,23 @@ Fires a single round.  Used for machinegun and chaingun.  Would be fine for
 pistols, rifles, etc....
 =================
 */
-void fire_bullet (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick, int hspread, int vspread, int mod)
-{	
-	int blasto=1;
+void fire_bullet(edict_t* self, vec3_t start, vec3_t aimdir, int damage, int kick, int hspread, int vspread, int mod)
+{
+	int i;
+	int blasto = 1;
 	qboolean quad;
 	// fire_lead (self, start, aimdir, damage, kick, TE_GUNSHOT, hspread, vspread, mod);
-	///quad = (self->client->quad_framenum > level.framenum);
-
+	if (self->client != NULL) {
+		quad = (self->client->quad_framenum > level.framenum);
+		if (quad)
+		{
+			blasto = 2;
+		}
+	}
+	for (i = 0; i < blasto; i++) {
 	fire_blaster(self, start, aimdir, damage, 80, vspread, true);
-	
-	
+	}
+		
 }
 
 
@@ -300,13 +307,15 @@ void fire_shotgun (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int k
 	vec3_t aim = { 0 };
 	int blasto = 10;
 	qboolean quad;
-	/*
-	quad = (self->client->quad_framenum > level.framenum);
-	if (quad) 
-	{
-		blasto = 40;
+	if (self->client != NULL) {
+		quad = (self->client->quad_framenum > level.framenum);
+		if (quad) 
+		{
+			blasto = 20;
+		}
 	}
-	*/
+	
+	
 	for (i = 0; i < blasto; i++) {
 		aim[0] = crandom();
 		aim[1] = crandom();
@@ -512,8 +521,13 @@ void grenade_think(edict_t* self) {
 	qboolean quad;
 
 
+	if (self->owner->client != NULL) {
+		quad = (self->owner->client->quad_framenum > level.framenum);
+		if (quad) {
+			blasto = 4;
+		}
+	}
 
-	//quad = (self->owner->client->quad_framenum > level.framenum);
 	self->nextthink = level.time + 1;
 	aimdir[0] = crandom();
 	aimdir[1] = crandom();
@@ -528,9 +542,7 @@ void grenade_think(edict_t* self) {
 	strcat(dest, snum);
 	gi.centerprintf(self->owner, dest);
 
-	//if (quad) {
-	//	blasto = 4;
-	//}
+	
 	for (int i = 0; i < blasto;i++) {
 		fire_blaster(self->owner, self->s.origin, aimdir, 50, 1000, 10, EF_BLASTER);
 	}
@@ -683,12 +695,13 @@ void rocket_think(edict_t* self) {
 	int i;
 	int blasto = 5;
 	qboolean quad;
+	if (self->owner->client != NULL) {
+		quad = (self->owner->client->quad_framenum > level.framenum);
 
-	//quad = (self->owner->client->quad_framenum > level.framenum);
-
-	//if (quad) {
-		//blasto = 20;
-	//}
+		if (quad) {
+			blasto = 10;
+		}
+	}
 
 	for (i = 0; i < blasto; i++) {
 		aimdir[0] = crandom();

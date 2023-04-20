@@ -342,7 +342,7 @@ void Use_Quad (edict_t *ent, gitem_t *item)
 
 	ent->client->pers.inventory[ITEM_INDEX(item)]--;
 	ValidateSelectedItem (ent);
-
+	
 	if (quad_drop_timeout_hack)
 	{
 		timeout = quad_drop_timeout_hack;
@@ -367,6 +367,8 @@ void Use_Breather (edict_t *ent, gitem_t *item)
 {
 	ent->client->pers.inventory[ITEM_INDEX(item)]--;
 	ValidateSelectedItem (ent);
+	
+
 
 	if (ent->client->breather_framenum > level.framenum)
 		ent->client->breather_framenum += 300;
@@ -375,6 +377,9 @@ void Use_Breather (edict_t *ent, gitem_t *item)
 
 //	gi.sound(ent, CHAN_ITEM, gi.soundindex("items/damage.wav"), 1, ATTN_NORM, 0);
 }
+
+
+
 
 //======================================================================
 
