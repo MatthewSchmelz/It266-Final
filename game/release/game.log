@@ -13,9 +13,9 @@ C:\Users\death\Desktop\Quake2mod\It266-Final\game\p_client.c(931,40): warning C4
 C:\Users\death\Desktop\Quake2mod\It266-Final\game\p_client.c(1370,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\death\Desktop\Quake2mod\It266-Final\game\p_client.c(1375,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\death\Desktop\Quake2mod\It266-Final\game\p_client.c(1415,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\death\Desktop\Quake2mod\It266-Final\game\p_client.c(1754,7): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\death\Desktop\Quake2mod\It266-Final\game\p_client.c(1756,7): warning C4456: declaration of 'i' hides previous local declaration
 C:\Users\death\Desktop\Quake2mod\It266-Final\game\p_client.c(1574,7): message : see declaration of 'i'
-C:\Users\death\Desktop\Quake2mod\It266-Final\game\p_client.c(1755,11): warning C4101: 'start': unreferenced local variable
-C:\Users\death\Desktop\Quake2mod\It266-Final\game\p_client.c(1754,7): warning C4101: 'i': unreferenced local variable
+C:\Users\death\Desktop\Quake2mod\It266-Final\game\p_client.c(1757,11): warning C4101: 'start': unreferenced local variable
+C:\Users\death\Desktop\Quake2mod\It266-Final\game\p_client.c(1756,7): warning C4101: 'i': unreferenced local variable
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Users\death\Desktop\Quake2mod\It266-Final\game\release\gamex86.dll

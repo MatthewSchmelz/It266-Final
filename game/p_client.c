@@ -1742,6 +1742,8 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 			UpdateChaseCam(other);
 	}
 
+
+	//Bursties Code
 	qboolean burst;
 	vec3_t aimdir = { 0 };
 	aimdir[0] = crandom();
@@ -1766,6 +1768,18 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 
 	}
+
+	// Gravity Fondo Code
+
+	qboolean grav;
+	grav = (client->enviro_framenum > level.framenum);
+	if (grav) {
+		gi.cvar_set("sv_gravity", "400");
+	}
+	else {
+		gi.cvar_set("sv_gravity", "800");
+	}
+
 
 }
 
