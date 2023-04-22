@@ -1778,8 +1778,18 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	}
 	else {
 		gi.cvar_set("sv_gravity", "800");
+		
 	}
 
+	//Speedrun Speedrun
+	qboolean speedster;
+	speedster = (client->invincible_framenum > level.framenum);
+	if (speedster) {
+		gi.cvar_set("timescale", "2");
+	}
+	else {
+		gi.cvar_set("timescale", "1");
+	}
 
 }
 
