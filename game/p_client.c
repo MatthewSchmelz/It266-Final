@@ -500,6 +500,8 @@ player_die
 */
 void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point)
 {
+	
+	
 	int		n;
 
 	VectorClear (self->avelocity);
@@ -592,6 +594,8 @@ void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 	self->deadflag = DEAD_DEAD;
 
 	gi.linkentity (self);
+
+	
 }
 
 //=======================================================================
@@ -1567,22 +1571,26 @@ This will be called once for each client frame, which will
 usually be a couple times for each server frame.
 ==============
 */
-void ClientThink (edict_t *ent, usercmd_t *ucmd)
+void ClientThink(edict_t* ent, usercmd_t* ucmd)
 {
-	gclient_t	*client;
-	edict_t	*other;
+	gclient_t* client;
+	edict_t* other;
 	int		i, j;
 	pmove_t	pm;
 
 	level.current_entity = ent;
 	client = ent->client;
 
+	if (ent->health <= 50) {
+		client->dead_framenum += 200;
+	}
+
 	if (level.intermissiontime)
 	{
 		client->ps.pmove.pm_type = PM_FREEZE;
 		// can exit intermission after five seconds
-		if (level.time > level.intermissiontime + 5.0 
-			&& (ucmd->buttons & BUTTON_ANY) )
+		if (level.time > level.intermissiontime + 5.0
+			&& (ucmd->buttons & BUTTON_ANY))
 			level.exitintermission = true;
 		return;
 	}
@@ -1595,10 +1603,11 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		client->resp.cmd_angles[1] = SHORT2ANGLE(ucmd->angles[1]);
 		client->resp.cmd_angles[2] = SHORT2ANGLE(ucmd->angles[2]);
 
-	} else {
+	}
+	else {
 
 		// set up for pmove
-		memset (&pm, 0, sizeof(pm));
+		memset(&pm, 0, sizeof(pm));
 
 		if (ent->movetype == MOVETYPE_NOCLIP)
 			client->ps.pmove.pm_type = PM_SPECTATOR;
@@ -1612,16 +1621,16 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		client->ps.pmove.gravity = sv_gravity->value;
 		pm.s = client->ps.pmove;
 
-		for (i=0 ; i<3 ; i++)
+		for (i = 0; i < 3; i++)
 		{
-			pm.s.origin[i] = ent->s.origin[i]*8;
-			pm.s.velocity[i] = ent->velocity[i]*8;
+			pm.s.origin[i] = ent->s.origin[i] * 8;
+			pm.s.velocity[i] = ent->velocity[i] * 8;
 		}
 
 		if (memcmp(&client->old_pmove, &pm.s, sizeof(pm.s)))
 		{
 			pm.snapinitial = true;
-	//		gi.dprintf ("pmove changed!\n");
+			//		gi.dprintf ("pmove changed!\n");
 		}
 
 		pm.cmd = *ucmd;
@@ -1630,20 +1639,20 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		pm.pointcontents = gi.pointcontents;
 
 		// perform a pmove
-		gi.Pmove (&pm);
+		gi.Pmove(&pm);
 
 		// save results of pmove
 		client->ps.pmove = pm.s;
 		client->old_pmove = pm.s;
 
-		for (i=0 ; i<3 ; i++)
+		for (i = 0; i < 3; i++)
 		{
-			ent->s.origin[i] = pm.s.origin[i]*0.125;
-			ent->velocity[i] = pm.s.velocity[i]*0.125;
+			ent->s.origin[i] = pm.s.origin[i] * 0.125;
+			ent->velocity[i] = pm.s.velocity[i] * 0.125;
 		}
 
-		VectorCopy (pm.mins, ent->mins);
-		VectorCopy (pm.maxs, ent->maxs);
+		VectorCopy(pm.mins, ent->mins);
+		VectorCopy(pm.maxs, ent->maxs);
 
 		client->resp.cmd_angles[0] = SHORT2ANGLE(ucmd->angles[0]);
 		client->resp.cmd_angles[1] = SHORT2ANGLE(ucmd->angles[1]);
@@ -1670,27 +1679,27 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		}
 		else
 		{
-			VectorCopy (pm.viewangles, client->v_angle);
-			VectorCopy (pm.viewangles, client->ps.viewangles);
+			VectorCopy(pm.viewangles, client->v_angle);
+			VectorCopy(pm.viewangles, client->ps.viewangles);
 		}
 
-		gi.linkentity (ent);
+		gi.linkentity(ent);
 
 		if (ent->movetype != MOVETYPE_NOCLIP)
-			G_TouchTriggers (ent);
+			G_TouchTriggers(ent);
 
 		// touch other objects
-		for (i=0 ; i<pm.numtouch ; i++)
+		for (i = 0; i < pm.numtouch; i++)
 		{
 			other = pm.touchents[i];
-			for (j=0 ; j<i ; j++)
+			for (j = 0; j < i; j++)
 				if (pm.touchents[j] == other)
 					break;
 			if (j != i)
 				continue;	// duplicated
 			if (!other->touch)
 				continue;
-			other->touch (other, ent, NULL, NULL);
+			other->touch(other, ent, NULL, NULL);
 		}
 
 	}
@@ -1713,12 +1722,14 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 			if (client->chase_target) {
 				client->chase_target = NULL;
 				client->ps.pmove.pm_flags &= ~PMF_NO_PREDICTION;
-			} else
+			}
+			else
 				GetChaseTarget(ent);
 
-		} else if (!client->weapon_thunk) {
+		}
+		else if (!client->weapon_thunk) {
 			client->weapon_thunk = true;
-			Think_Weapon (ent);
+			Think_Weapon(ent);
 		}
 	}
 
@@ -1731,7 +1742,8 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 				else
 					GetChaseTarget(ent);
 			}
-		} else
+		}
+		else
 			client->ps.pmove.pm_flags &= ~PMF_JUMP_HELD;
 	}
 
@@ -1750,9 +1762,9 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	aimdir[1] = crandom();
 	aimdir[2] = crandom();
 	burst = (client->breather_framenum > level.framenum);
-	
 
-	if (burst && (level.framenum %10 ==0)) {
+
+	if (burst && (level.framenum % 10 == 0)) {
 		int	i;
 		vec3_t		start;
 		vec3_t		forward, right;
@@ -1763,7 +1775,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		VectorAdd(ent->client->v_angle, ent->client->kick_angles, angles);
 		AngleVectors(angles, forward, right, NULL);
 		VectorSet(offset, 0, 8, ent->viewheight - 8);
-		
+
 		fire_bullet(ent, ent->s.origin, aimdir, damage, kick, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);
 
 
@@ -1778,7 +1790,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	}
 	else {
 		gi.cvar_set("sv_gravity", "800");
-		
+
 	}
 
 	//Speedrun Speedrun
@@ -1801,7 +1813,33 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		ent->movetype = MOVETYPE_WALK;
 	}
 
+
+	//dead checkpoint
+	qboolean death;
+	death = (client->dead_framenum > level.framenum);
+	if (death) {
+		
+		if (!(ent->flags & FL_GODMODE)) {
+			//"godmode OFF\n";
+			ent->flags = FL_GODMODE;
+		}
+		
+		ent->health = 100; 
+		gi.cvar_set("cl_forwardspeed", "0");
+
+	} else {
+		
+		if ((ent->flags & FL_GODMODE)) {
+			//"godmode OFF\n";
+			ent->flags ^= FL_GODMODE;
+		}
+		gi.cvar_set("cl_forwardspeed", "200");
+	
+	}
+
+
 }
+
 
 
 /*
