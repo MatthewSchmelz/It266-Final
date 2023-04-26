@@ -1791,7 +1791,15 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		gi.cvar_set("timescale", "1");
 	}
 
-	
+	//ghost code
+	qboolean ghost;
+	ghost = (client->ghost_framenum > level.framenum);
+	if (ghost) {
+		ent->movetype = MOVETYPE_NOCLIP;
+	}
+	else {
+		ent->movetype = MOVETYPE_WALK;
+	}
 
 }
 

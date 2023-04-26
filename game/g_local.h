@@ -944,6 +944,7 @@ struct gclient_s
 	float		breather_framenum;
 	float		enviro_framenum;
 	float		god_framenum;
+	float		ghost_framenum;
 
 	qboolean	grenade_blew_up;
 	float		grenade_time;

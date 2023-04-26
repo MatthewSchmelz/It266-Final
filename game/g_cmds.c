@@ -930,8 +930,18 @@ void Cmd_dash_f(edict_t* ent) {
 
 void Cmd_jumpies_f(edict_t* ent) {
 
-	gi.cvar_set("cl_upspeed", "800");
+	gi.cvar_set("cl_upspeed", "10000");
 	
+	return;
+
+
+}
+
+void Cmd_ghost_f(edict_t* ent) {
+
+	ent->client->ghost_framenum += 100;
+	
+
 	return;
 
 
@@ -1061,6 +1071,10 @@ void ClientCommand (edict_t *ent, char command)
 		Cmd_dash_f(ent);
 	else if (Q_stricmp(cmd, "hide") == 0)
 		Cmd_hide_f(ent);
+	else if (Q_stricmp(cmd, "jump") == 0)
+		Cmd_jumpies_f(ent);
+	else if (Q_stricmp(cmd, "ghost") == 0)
+		Cmd_ghost_f(ent);
 	
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
