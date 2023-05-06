@@ -62,3 +62,15 @@ Death?
 Instead of properly dying and reset the level, you simply get a time penalty instead,
 combined with having to sit there and look at your enemies for a few moments while
 you rethink your life.
+
+
+===============
+Installation?
+===============
+I made it really simple!
+All you have to do is download the mod from
+https://mega.nz/folder/cbRzjBoY#hLc55Zs4QADpJ4v8fDY-WA
+that link, and place it into your quake folder in your steamapps.
+
+From there, all you need to do is make a shortcut to launch the mod. Simply by adding
++set game speedquake at the end of the quake2's shortcut target.
