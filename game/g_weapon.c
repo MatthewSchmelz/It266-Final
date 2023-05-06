@@ -533,14 +533,6 @@ void grenade_think(edict_t* self) {
 	aimdir[1] = crandom();
 	aimdir[2] = crandom();
 	
-	char snum[5];
-	itoa(level.time, snum, 10);
-	char* str = "Time: ";
-	char dest[12];
-
-	strcpy(dest, str);
-	strcat(dest, snum);
-	gi.centerprintf(self->owner, dest);
 
 	
 	for (int i = 0; i < blasto;i++) {

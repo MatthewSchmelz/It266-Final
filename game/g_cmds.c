@@ -920,9 +920,9 @@ void Cmd_dash_f(edict_t* ent) {
 
 	vec3_t forward, right;
 	AngleVectors(ent->client->v_angle, forward, right, NULL);
-
 	ent->velocity[0] = 600;
 	
+
 
 	return;
 
@@ -944,37 +944,34 @@ void Cmd_ghost_f(edict_t* ent) {
 }
 
 void Cmd_teleport_f(edict_t* ent) {
-
+	
+	ent->velocity[2] = -1000;
+	ent->client->dead_framenum += 100;
 	return;
 }
 
+void Cmd_GunFiesta_f(edict_t* ent) {
 
+	ent->client->quad_framenum +=300;
+	ent->client->invincible_framenum +=300;
+	ent->client->breather_framenum +=300;
+	return;
+}
 
 void Cmd_hide_f(edict_t* ent ) {
 	char* msg;
 
 
-	if (ent->movetype == MOVETYPE_NONE)
-	{
-		ent->movetype = MOVETYPE_WALK;
-		gi.cvar_set("cl_forwardspeed", "200");
-		
-	}
-	else
-	{
-		ent->movetype = MOVETYPE_NONE;
-		gi.cvar_set("cl_forwardspeed", "100");
-		msg = "notarget ON\n";
-	}
-
 	ent->flags ^= FL_NOTARGET;
 	if (!(ent->flags & FL_NOTARGET)) {
 
 		msg = "notarget OFF\n";
+		gi.cvar_set("cl_forwardspeed", "200");
 	}
 	else {
 
 		msg = "notarget ON\n";
+		gi.cvar_set("cl_forwardspeed", "100");
 	}
 
 	gi.cprintf(ent, PRINT_HIGH, msg);
@@ -1078,6 +1075,8 @@ void ClientCommand (edict_t *ent, char command)
 		Cmd_ghost_f(ent);
 	else if (Q_stricmp(cmd, "teleport") == 0)
 		Cmd_teleport_f(ent);
+	else if (Q_stricmp(cmd, "fiesta") == 0)
+		Cmd_GunFiesta_f(ent);
 	
 	
 	else	// anything that doesn't match a command will be a chat

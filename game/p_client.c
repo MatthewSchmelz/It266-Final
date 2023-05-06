@@ -1581,7 +1581,7 @@ void ClientThink(edict_t* ent, usercmd_t* ucmd)
 	level.current_entity = ent;
 	client = ent->client;
 
-	if (ent->health <= 50) {
+	if (ent->health <= 10) {
 		client->dead_framenum += 200;
 	}
 
@@ -1814,6 +1814,8 @@ void ClientThink(edict_t* ent, usercmd_t* ucmd)
 	}
 
 
+
+
 	//dead checkpoint
 	qboolean death;
 	death = (client->dead_framenum > level.framenum);
@@ -1832,11 +1834,22 @@ void ClientThink(edict_t* ent, usercmd_t* ucmd)
 		if ((ent->flags & FL_GODMODE)) {
 			//"godmode OFF\n";
 			ent->flags ^= FL_GODMODE;
+			gi.cvar_set("cl_forwardspeed", "200");
 		}
-		gi.cvar_set("cl_forwardspeed", "200");
-	
+		
+		
 	}
 
+
+	//Timer Code
+	char snum[5];
+	itoa(level.time, snum, 10);
+	char* str = "Time: ";
+	char dest[12];
+
+	strcpy(dest, str);
+	strcat(dest, snum);
+	gi.centerprintf(ent, dest);
 
 }
 
