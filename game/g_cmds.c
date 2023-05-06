@@ -921,6 +921,7 @@ void Cmd_dash_f(edict_t* ent) {
 	vec3_t forward, right;
 	AngleVectors(ent->client->v_angle, forward, right, NULL);
 
+	ent->velocity[0] = 600;
 	
 
 	return;
@@ -930,21 +931,21 @@ void Cmd_dash_f(edict_t* ent) {
 
 void Cmd_jumpies_f(edict_t* ent) {
 
-	gi.cvar_set("cl_upspeed", "10000");
+	ent->velocity[2] = 800;
+	
 	
 	return;
-
-
 }
 
 void Cmd_ghost_f(edict_t* ent) {
 
 	ent->client->ghost_framenum += 100;
-	
+	return;
+}
+
+void Cmd_teleport_f(edict_t* ent) {
 
 	return;
-
-
 }
 
 
@@ -1075,6 +1076,9 @@ void ClientCommand (edict_t *ent, char command)
 		Cmd_jumpies_f(ent);
 	else if (Q_stricmp(cmd, "ghost") == 0)
 		Cmd_ghost_f(ent);
+	else if (Q_stricmp(cmd, "teleport") == 0)
+		Cmd_teleport_f(ent);
+	
 	
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
